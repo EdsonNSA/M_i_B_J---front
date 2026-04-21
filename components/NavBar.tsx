@@ -68,9 +68,9 @@ export function NavBar() {
       <a 
         href="#" 
         onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} 
-        className="flex-1 flex items-center justify-center md:justify-start gap-4 no-underline cursor-pointer group"
+        className="flex-1 flex items-center justify-center md:justify-start gap-3 md:gap-4 no-underline cursor-pointer group"
       >
-        <div className="relative w-16 h-16 md:w-18 md:h-18 shrink-0 group-hover:scale-105 transition-transform duration-300">
+        <div className="relative w-14 h-14 md:w-18 md:h-18 shrink-0 group-hover:scale-105 transition-transform duration-300">
           <Image 
             src="/drops/logo.jpg" 
             alt="Logo Made in Belo Jardim" 
@@ -85,9 +85,13 @@ export function NavBar() {
             <span className="font-sans font-bold text-ink text-[10px] md:text-xs tracking-tight lowercase">made in</span>
             <span className="font-sans font-black text-ink text-xl md:text-3xl uppercase tracking-tighter">Belo Jardim</span>
           </div>
-          <span className="font-space text-[11px] md:text-[11px] font-black tracking-[0.25em] uppercase text-gold bg-ink px-2 py-0.5">
-            Sustentabilidade e Cultura
-          </span>
+          
+          {/* AJUSTE MOBILE: Fundo preto justo e sem quebra de texto */}
+          <div className="bg-ink px-2 py-0.5 inline-block w-fit">
+            <span className="font-space text-[8px] md:text-[10px] font-black tracking-[0.15em] uppercase text-gold whitespace-nowrap">
+              Sustentabilidade e Cultura
+            </span>
+          </div>
         </div>
       </a>
       
@@ -109,7 +113,6 @@ export function NavBar() {
       {/* ── PAINEL DA SACOLA ── */}
       <div className="flex items-center justify-end md:flex-none md:ml-12">
         <Sheet open={isCartOpen} onOpenChange={setCartOpen}>
-          {/* BOTÃO DA SACOLA: hidden no mobile, flex no desktop */}
           <SheetTrigger asChild>
             <button className="hidden md:flex font-space text-xs font-bold tracking-widest text-ink border-[1.5px] border-ink px-4 py-2 bg-transparent hover:bg-ink hover:text-gold transition-all duration-150 cursor-pointer items-center justify-center">
               Sacola ({items.length})
