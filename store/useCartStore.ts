@@ -1,26 +1,37 @@
 import { create } from 'zustand';
 
-export interface CartItem {
+type CartItem = {
   id: string;
   name: string;
   price: number;
-  imagePlaceholder?: string;
-}
+};
 
-interface CartStore {
+type CartStore = {
   items: CartItem[];
+  isCartOpen: boolean;
+  toastMessage: string | null; // Novo: Estado da mensagem
   addItem: (item: CartItem) => void;
   removeItem: (id: string) => void;
-}
+  setCartOpen: (isOpen: boolean) => void;
+  showToast: (msg: string) => void; // Novo: Função para mostrar
+  hideToast: () => void; // Novo: Função para esconder
+};
 
 export const useCartStore = create<CartStore>((set) => ({
   items: [],
-  addItem: (item) => set((state) => {
-    // Evita adicionar a mesma peça única 1/1 duas vezes
-    if (state.items.find(i => i.id === item.id)) return state;
-    return { items: [...state.items, item] };
-  }),
-  removeItem: (id) => set((state) => ({ 
-    items: state.items.filter((i) => i.id !== id) 
-  })),
+  isCartOpen: false,
+  toastMessage: null,
+  
+  addItem: (item) => set((state) => ({ items: [...state.items, item] })),
+  removeItem: (id) => set((state) => ({ items: state.items.filter((i) => i.id !== id) })),
+  setCartOpen: (isOpen) => set({ isCartOpen: isOpen }),
+  
+  // Função que mostra a mensagem e apaga sozinha após 3 segundos
+  showToast: (msg) => {
+    set({ toastMessage: msg });
+    setTimeout(() => {
+      set({ toastMessage: null });
+    }, 3000);
+  },
+  hideToast: () => set({ toastMessage: null }),
 }));
