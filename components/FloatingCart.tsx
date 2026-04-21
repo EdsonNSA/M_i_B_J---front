@@ -14,7 +14,7 @@ export function FloatingCart() {
     /* md:hidden garante que ele suma no Desktop */
     <button
       onClick={() => setCartOpen(true)}
-      className="md:hidden fixed bottom-6 right-6 z-[100] flex items-center bg-ink text-gold px-5 py-4 border-2 border-ink shadow-[5px_5px_0_var(--color-gold)] active:translate-y-0.5 active:translate-x-0.5 active:shadow-[2px_2px_0_var(--color-gold)] transition-all cursor-pointer animate-in fade-in slide-in-from-bottom-4 duration-300"
+      className="md:hidden fixed bottom-6 right-6 z-100 flex items-center bg-ink text-gold px-5 py-4 border-2 border-ink shadow-[5px_5px_0_var(--color-gold)] active:translate-y-0.5 active:translate-x-0.5 active:shadow-[2px_2px_0_var(--color-gold)] transition-all cursor-pointer animate-in fade-in slide-in-from-bottom-4 duration-300"
     >
       {/* Ícone de Sacola Brutalista */}
       <svg

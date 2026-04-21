@@ -182,11 +182,11 @@ export function DropsGrid() {
 
       {/* MODAL "QUICK VIEW" ADAPTÁVEL (MESMO ESTILO DO HERO) */}
       {selectedProduct && (
-        <div className="fixed inset-0 z-[110] flex items-center justify-center bg-ink/90 backdrop-blur-sm p-4 animate-in fade-in duration-200" onClick={() => setSelectedProduct(null)}>
+        <div className="fixed inset-0 z-110 flex items-center justify-center bg-ink/90 backdrop-blur-sm p-4 animate-in fade-in duration-200" onClick={() => setSelectedProduct(null)}>
           <div className="bg-bg w-full max-w-[90%] md:max-w-4xl max-h-[85vh] flex flex-col md:flex-row relative border-2 border-ink shadow-[8px_8px_0_var(--color-gold)] overflow-hidden" onClick={e => e.stopPropagation()}>
             <button onClick={() => setSelectedProduct(null)} className="absolute top-2 right-2 z-50 text-ink bg-bg border-2 border-ink w-8 h-8 flex items-center justify-center font-sans font-black cursor-pointer shadow-[2px_2px_0_var(--color-ink)]">X</button>
             
-            <div className="w-full h-[250px] md:h-full md:w-1/2 shrink-0 relative border-b-2 md:border-b-0 md:border-r-2 border-ink bg-ink/5">
+            <div className="w-full h-62.5 md:h-full md:w-1/2 shrink-0 relative border-b-2 md:border-b-0 md:border-r-2 border-ink bg-ink/5">
               <Image src={selectedProduct.gif || selectedProduct.img} alt={selectedProduct.name} fill className="object-cover" />
             </div>
 

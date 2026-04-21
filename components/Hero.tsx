@@ -118,13 +118,13 @@ export function Hero() {
             ✦ DROP #{activeItem.id} · DESTAQUES ✦
           </p>
           
-          <div className="h-[100px] md:h-[120px] w-full flex flex-col items-center justify-center relative z-20 mb-4 cursor-pointer" onClick={() => setSelectedProduct(activeItem)}>
+          <div className="h-25 md:h-30 w-full flex flex-col items-center justify-center relative z-20 mb-4 cursor-pointer" onClick={() => setSelectedProduct(activeItem)}>
             <h1 className="font-sans font-black uppercase tracking-tighter text-4xl md:text-5xl lg:text-6xl text-ink text-center leading-[0.9] hover:text-gold transition-colors px-4">
               {activeItem.name.split(' ')[0]}<br/>{activeItem.name.split(' ').slice(1).join(' ')}
             </h1>
           </div>
           
-          <div className="relative w-full h-[320px] md:h-[400px] flex items-center justify-center z-20 mb-8">
+          <div className="relative w-full h-80 md:h-100 flex items-center justify-center z-20 mb-8">
             <button onClick={prevSlide} className="absolute left-2 md:left-4 z-40 w-10 h-10 md:w-12 md:h-12 border-2 border-ink bg-bg flex items-center justify-center font-sans font-black text-xl text-ink hover:bg-gold hover:text-ink transition-colors cursor-pointer shadow-[2px_2px_0_var(--color-ink)]">
               &lt;
             </button>
@@ -147,7 +147,7 @@ export function Hero() {
                 <div 
                    key={item.id}
                    onClick={() => { if (diff !== 0) diff === -1 ? prevSlide() : nextSlide(); else setSelectedProduct(item); }}
-                   className={`absolute transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] w-[200px] h-[280px] md:w-[260px] md:h-[350px] border-2 border-ink bg-bg flex items-center justify-center overflow-hidden group ${transformClass}`}
+                   className={`absolute transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] w-50 h-70 md:w-65 md:h-87.5 border-2 border-ink bg-bg flex items-center justify-center overflow-hidden group ${transformClass}`}
                 >
                    <Image src={(diff === 0 && item.gif) ? item.gif : item.img} alt={item.name} fill className="object-cover" priority={diff === 0} />
                 </div>
@@ -172,7 +172,7 @@ export function Hero() {
 
           <div 
             onClick={() => setSelectedProduct(activeItem)}
-            className="w-full h-[340px] shrink-0 bg-bg-card border-2 border-ink border-l-4 border-l-gold p-5 cursor-pointer hover:bg-gold/5 transition-all group flex flex-col justify-start overflow-y-auto"
+            className="w-full h-85 shrink-0 bg-bg-card border-2 border-ink border-l-4 border-l-gold p-5 cursor-pointer hover:bg-gold/5 transition-all group flex flex-col justify-start overflow-y-auto"
           >
             <span className="font-space text-[10px] font-bold tracking-widest uppercase text-gold mb-4 block shrink-0">✦ A história desta peça</span>
             <p key={activeItem.id} className="font-sans font-bold uppercase tracking-wide text-xs text-ink/80 leading-relaxed animate-in fade-in duration-500">
@@ -195,10 +195,10 @@ export function Hero() {
 
       {/* MODAL (JANELA CENTRALIZADA) */}
       {selectedProduct && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-ink/90 backdrop-blur-sm p-4 animate-in fade-in duration-200" onClick={() => setSelectedProduct(null)}>
+        <div className="fixed inset-0 z-100 flex items-center justify-center bg-ink/90 backdrop-blur-sm p-4 animate-in fade-in duration-200" onClick={() => setSelectedProduct(null)}>
           <div className="bg-bg w-full max-w-[90%] md:max-w-4xl max-h-[85vh] flex flex-col md:flex-row relative border-2 border-ink shadow-[8px_8px_0_var(--color-gold)] overflow-hidden" onClick={e => e.stopPropagation()}>
             <button onClick={() => setSelectedProduct(null)} className="absolute top-2 right-2 z-50 text-ink bg-bg border-2 border-ink w-8 h-8 flex items-center justify-center font-sans font-black cursor-pointer shadow-[2px_2px_0_var(--color-ink)]">X</button>
-            <div className="w-full h-[250px] md:h-full md:w-1/2 shrink-0 relative border-b-2 md:border-b-0 md:border-r-2 border-ink bg-ink/5">
+            <div className="w-full h-62.5 md:h-full md:w-1/2 shrink-0 relative border-b-2 md:border-b-0 md:border-r-2 border-ink bg-ink/5">
               <Image src={selectedProduct.gif || selectedProduct.img} alt={selectedProduct.name} fill className="object-cover" />
             </div>
             <div className="w-full flex-1 md:w-1/2 flex flex-col bg-bg overflow-y-auto p-5 md:p-10">
