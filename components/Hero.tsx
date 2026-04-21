@@ -198,8 +198,15 @@ export function Hero() {
         <div className="fixed inset-0 z-100 flex items-center justify-center bg-ink/90 backdrop-blur-sm p-4 animate-in fade-in duration-200" onClick={() => setSelectedProduct(null)}>
           <div className="bg-bg w-full max-w-[90%] md:max-w-4xl max-h-[85vh] flex flex-col md:flex-row relative border-2 border-ink shadow-[8px_8px_0_var(--color-gold)] overflow-hidden" onClick={e => e.stopPropagation()}>
             <button onClick={() => setSelectedProduct(null)} className="absolute top-2 right-2 z-50 text-ink bg-bg border-2 border-ink w-8 h-8 flex items-center justify-center font-sans font-black cursor-pointer shadow-[2px_2px_0_var(--color-ink)]">X</button>
-            <div className="w-full h-62.5 md:h-full md:w-1/2 shrink-0 relative border-b-2 md:border-b-0 md:border-r-2 border-ink bg-ink/5">
-              <Image src={selectedProduct.gif || selectedProduct.img} alt={selectedProduct.name} fill className="object-cover" />
+            <div className="w-full h-75 md:h-auto md:w-1/2 md:min-h-125 shrink-0 relative border-b-2 md:border-b-0 md:border-r-2 border-ink bg-ink/5">
+              <Image 
+                src={selectedProduct.gif || selectedProduct.img} 
+                alt={selectedProduct.name} 
+                fill 
+                className="object-cover" 
+                sizes="(max-width: 768px) 100vw, 50vw"
+                priority
+              />
             </div>
             <div className="w-full flex-1 md:w-1/2 flex flex-col bg-bg overflow-y-auto p-5 md:p-10">
               <span className="font-space text-[10px] uppercase text-ink/50 mb-2">Drop #{selectedProduct.id}</span>
