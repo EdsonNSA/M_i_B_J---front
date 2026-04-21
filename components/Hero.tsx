@@ -58,13 +58,12 @@ export function Hero() {
     { id: "004", name: "CROPPED BRASIL-JARDIM", tech: "Upcycling", price: 110, status: "sold_out", img: "/drops/cropped-futebol.jpg", description: "Camisa customizada à mão. Peça única 1/1." },
     { id: "005", name: "SAIA-CALÇÃO", tech: "Colagem Têxtil", price: 100, status: "available", img: "/drops/skort.jpg", description: "Saia-calção assimétrica vibrante." },
     { id: "006", name: "SAIA MIDI", tech: "Painel Narrativo", price: 100, status: "available", img: "/drops/saia-midi.jpg", description: "Peça que evoca tradições locais." },
-    { id: "007", name: "CAMISETA PERNAMBUCO IMORTAL", tech: "Oversized", price: 120, status: "available", img: "/drops/pernambuco-imortal.jpg", description: "Ode à resiliência pernambucana." },
-    { id: "008", name: "REGATA 1817", tech: "Histórica", price: 90, status: "coming_soon", img: "/drops/regata-1817.jpg", description: "Simbologia religiosa e histórica." }
+    { id: "007", name: "CAMISETA PERNAMBUCO IMORTAL", tech: "Oversized", price: 120, status: "available", img: "/drops/pernambuco-imortal.jpg", description: "Esta camiseta oversized preta é uma ode à resiliência do povo pernambucano, trazendo elementos da bandeira de forma desconstruída e artística." },
+    { id: "008", name: "REGATA 1817", tech: "Regata Oversized", price: 90, status: "coming_soon", img: "/drops/regata-1817.jpg", description: "Uma peça de impacto que transforma o patriotismo regional em moda urbana. Esta regata preta foca na simbologia religiosa e histórica da bandeira pernambucana." }
   ];
-
-  // ── LÓGICA DO CARROSSEL ──
+// Carrossel focado nos 3 primeiros destaques
   const carouselProducts = allDrops.slice(0, 3); 
-  const activeItem = carouselProducts[currentIndex]; // RESOLVE O ERRO Cannot find name 'activeItem'
+  const activeItem = carouselProducts[currentIndex];
 
   const staticProducts = {
     esquerda: allDrops[6], 
@@ -173,18 +172,28 @@ export function Hero() {
             })}
           </div>
 
-          <button 
-            onClick={() => { addItem(activeItem); showToast(`✦ ${activeItem.name} ADICIONADO`); }}
-            className="w-64 md:w-80 bg-ink text-gold font-space text-[10px] md:text-sm font-black tracking-widest uppercase py-5 border-2 border-ink shadow-[4px_4px_0_var(--color-gold)] active:translate-y-0.5 active:translate-x-0.5 transition-all cursor-pointer z-20"
-          >
-            ✦ Adicionar · R$ {activeItem.price} ✦
-          </button>
+          {/* BOTÃO COM TRAVA DE STATUS */}
+          {activeItem.status === 'available' ? (
+            <button 
+              onClick={() => { addItem(activeItem); showToast(`✦ ${activeItem.name} ADICIONADO`); }}
+              className="w-64 md:w-80 bg-ink text-gold font-space text-[10px] md:text-sm font-black tracking-widest uppercase py-5 border-2 border-ink shadow-[4px_4px_0_var(--color-gold)] active:translate-y-0.5 active:translate-x-0.5 transition-all cursor-pointer z-20"
+            >
+              ✦ Adicionar · R$ {activeItem.price} ✦
+            </button>
+          ) : (
+            <button 
+              disabled
+              className="w-64 md:w-80 bg-bg-panel text-muted font-space text-[10px] md:text-sm font-black tracking-widest uppercase py-5 border-2 border-muted cursor-not-allowed z-20 opacity-70"
+            >
+              ✦ {activeItem.status === 'sold_out' ? 'Esgotado' : 'Em breve'} ✦
+            </button>
+          )}
         </div>
 
         {/* PAINEL DIREITO */}
         <div className="hidden md:flex bg-bg-panel border-l-2 border-ink flex-col items-center justify-between p-6 relative z-30 gap-6">
           <div className="w-full border-2 border-ink bg-ink text-gold py-5 text-center flex flex-col justify-center shrink-0 mt-4">
-            <span className="font-space text-[9px] font-bold tracking-widest uppercase block mb-1">Selo de Garantia</span>
+            <span className="font-space text-[9px] font-bold tracking-widest uppercase block mb-1">Made in BJ</span>
             <span className="font-sans font-black text-xl uppercase tracking-tighter leading-none">100%<br/>Material<br/>Recuperado</span>
           </div>
 
@@ -198,20 +207,23 @@ export function Hero() {
             </p>
           </div>
 
+          {/* ITEM ESTÁTICO (REGATA) - TAMBÉM COM VERIFICAÇÃO DE STATUS NO MODAL */}
           <div 
             onClick={() => openModal(staticProducts.direita)}
             className="w-full border-2 border-ink bg-bg-card p-3 text-center relative mb-4 cursor-pointer hover:bg-gold/20 transition-colors group shrink-0"
           >
-            <span className="absolute -top-2 right-1 font-space text-[9px] tracking-widest uppercase bg-gold text-ink px-2 py-0.5 z-20">Em breve</span>
+            <span className="absolute -top-2 right-1 font-space text-[9px] tracking-widest uppercase bg-gold text-ink px-2 py-0.5 z-20">
+               {staticProducts.direita.status === 'coming_soon' ? 'Em breve' : 'Destaque'}
+            </span>
             <div className="w-full aspect-3/4 relative mb-3 border-2 border-ink/10 overflow-hidden">
-               <Image src={staticProducts.direita.img} alt={staticProducts.direita.name} fill className="object-cover opacity-50 grayscale group-hover:scale-105 transition-transform duration-500" />
+               <Image src={staticProducts.direita.img} alt={staticProducts.direita.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
             </div>
             <div className="font-sans font-black uppercase tracking-tighter text-base text-ink leading-none mb-1 group-hover:text-gold transition-colors">{staticProducts.direita.name}</div>
           </div>
         </div>
       </section>
 
-      {/* MODAL COM GALERIA */}
+      {/* MODAL COM GALERIA E TRAVA DE COMPRA INTERNA */}
       {selectedProduct && (
         <div className="fixed inset-0 z-100 flex items-center justify-center bg-ink/90 backdrop-blur-sm p-4 animate-in fade-in duration-200" onClick={() => setSelectedProduct(null)}>
           <div className="bg-bg w-full max-w-[90%] md:max-w-4xl max-h-[85vh] flex flex-col md:flex-row relative border-2 border-ink shadow-[8px_8px_0_var(--color-gold)] overflow-hidden" onClick={e => e.stopPropagation()}>
@@ -229,20 +241,8 @@ export function Hero() {
 
               {selectedProduct.images && selectedProduct.images.length > 1 && (
                 <div className="absolute inset-0 flex items-center justify-between px-4 z-20">
-                  <button 
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setCurrentImageIndex((prev) => (prev === 0 ? selectedProduct.images!.length - 1 : prev - 1));
-                    }}
-                    className="w-10 h-10 bg-bg/90 border-2 border-ink flex items-center justify-center font-black hover:bg-gold hover:scale-110 transition-all cursor-pointer shadow-[2px_2px_0_var(--color-ink)]"
-                  >&lt;</button>
-                  <button 
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setCurrentImageIndex((prev) => (prev === selectedProduct.images!.length - 1 ? 0 : prev + 1));
-                    }}
-                    className="w-10 h-10 bg-bg/90 border-2 border-ink flex items-center justify-center font-black hover:bg-gold hover:scale-110 transition-all cursor-pointer shadow-[2px_2px_0_var(--color-ink)]"
-                  >&gt;</button>
+                  <button onClick={(e) => { e.stopPropagation(); setCurrentImageIndex((prev) => (prev === 0 ? selectedProduct.images!.length - 1 : prev - 1)); }} className="w-10 h-10 bg-bg/90 border-2 border-ink flex items-center justify-center font-black hover:bg-gold hover:scale-110 transition-all cursor-pointer shadow-[2px_2px_0_var(--color-ink)]">&lt;</button>
+                  <button onClick={(e) => { e.stopPropagation(); setCurrentImageIndex((prev) => (prev === selectedProduct.images!.length - 1 ? 0 : prev + 1)); }} className="w-10 h-10 bg-bg/90 border-2 border-ink flex items-center justify-center font-black hover:bg-gold hover:scale-110 transition-all cursor-pointer shadow-[2px_2px_0_var(--color-ink)]">&gt;</button>
                 </div>
               )}
             </div>
@@ -257,9 +257,12 @@ export function Hero() {
               <div className="mt-auto pt-5 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <p className="font-space text-2xl md:text-3xl font-black text-ink">R$ {selectedProduct.price}</p>
                 <button 
+                  disabled={selectedProduct.status !== 'available'}
                   onClick={() => { addItem(selectedProduct); showToast(`✦ ${selectedProduct.name} ADICIONADO`); setSelectedProduct(null); }}
-                  className="w-full sm:w-auto bg-ink text-gold font-space text-xs font-bold uppercase px-8 py-4 border-2 border-ink shadow-[4px_4px_0_var(--color-gold)] active:translate-y-0.5 active:shadow-[2px_2px_0_var(--color-gold)] cursor-pointer"
-                >+ Sacola</button>
+                  className={`w-full sm:w-auto font-space text-xs font-bold uppercase px-8 py-4 border-2 border-ink shadow-[4px_4px_0_var(--color-gold)] active:translate-y-0.5 active:shadow-[2px_2px_0_var(--color-gold)] cursor-pointer ${selectedProduct.status === 'available' ? 'bg-ink text-gold' : 'bg-muted text-bg opacity-50 cursor-not-allowed'}`}
+                >
+                  {selectedProduct.status === 'available' ? '+ Sacola' : (selectedProduct.status === 'sold_out' ? 'Esgotado' : 'Em breve')}
+                </button>
               </div>
             </div>
           </div>

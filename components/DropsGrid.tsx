@@ -69,7 +69,7 @@ export function DropsGrid() {
     { 
       id: "005", 
       name: "CAMISETA PERNAMBUCO IMORTAL", 
-      tech: "Oversized / Desconstruída", 
+      tech: "Oversized", 
       price: 120, 
       status: "available", 
       img: "/drops/pernambuco-imortal.jpg",
@@ -78,7 +78,7 @@ export function DropsGrid() {
     { 
       id: "006", 
       name: "REGATA 1817", 
-      tech: "Simbologia Histórica", 
+      tech: "Regata Oversized", 
       price: 90, 
       status: "coming_soon", 
       img: "/drops/regata-1817.jpg",
@@ -201,7 +201,7 @@ export function DropsGrid() {
                   onClick={() => { addItem(selectedProduct); showToast(`✦ ${selectedProduct.name} ADICIONADO`); setSelectedProduct(null); }}
                   className={`w-full sm:w-auto font-space text-xs font-bold uppercase px-8 py-4 border-2 border-ink shadow-[4px_4px_0_var(--color-gold)] active:translate-y-0.5 active:shadow-[2px_2px_0_var(--color-gold)] cursor-pointer ${selectedProduct.status === 'available' ? 'bg-ink text-gold' : 'bg-muted text-bg opacity-50 cursor-not-allowed'}`}
                 >
-                  {selectedProduct.status === 'available' ? '+ Sacola' : 'Indisponível'}
+                  {selectedProduct.status === 'available' ? '+ Sacola' : 'EM BREVE'}
                 </button>
               </div>
             </div>
